@@ -1,0 +1,45 @@
+<script>
+  // var v1 = 'a';
+  // v2 = 'b';
+  // const condition1 = v1 === window.v1;
+  // const condition2 = v2 === window.v2;
+
+  // const condition3 = f1 === window.f1;
+  // function f1() {}
+  // if (window.confirm('진행 하시겠습니까?')) {
+  //   window.console.log('진행');
+  // } else {
+  //   window.alert('멈춤');
+  // }
+  // const string1 = '[1, 2, 3]';
+  // const array1 = JSON.parse(string1);
+  // const string2 = JSON.stringify(array1);
+
+  // // storageGet Create
+  // sessionStorage.setItem('ss1', 1);
+  // sessionStorage.setItem('ss2', '이');
+  // sessionStorage.setItem('ss3', undefined);
+
+  // // storageGet Read
+  // const ss1 = sessionStorage.getItem('ss1');
+  // const ss2 = sessionStorage.getItem('ss2');
+  // const ss3 = sessionStorage.getItem('ss3');
+
+  // // storageGet Update
+  // sessionStorage.setItem('ss1', [1, 2, 3]);
+  // sessionStorage.setItem('ss2', {
+  //   key1: 'value1'
+  // });
+  // sessionStorage.setItem('ss3', function () {});
+
+  // // storageGet Delete
+  // sessionStorage.removeItem('ss1');
+  // sessionStorage.clear();
+  const storageGet = sessionStorage.getItem('array2');
+  const storageLogical = storageGet || '[1, 2, 3]';
+  const array2 = JSON.parse(storageLogical);
+  const plus1 = array2.length + 1;
+  array2.push(plus1);
+  const storageSet = JSON.stringify(array2);
+  sessionStorage.setItem('array2', storageSet);
+</script>
