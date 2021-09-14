@@ -21,9 +21,11 @@ const membersCreate = function (member) {
 };
 
 const membersRead = function () {
+  const tagPre = document.getElementById('tag-pre');
   for (let index in members) {
-    document.writeln(members[index]);
+    tagPre.innerHTML += members[index] + '\n';
   }
+
   return members;
 };
 
