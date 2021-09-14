@@ -1,3 +1,17 @@
+const queryString = new URLSearchParams(window.location.search);
+const nameText = queryString.get('input-text');
+const inputHiddens = queryString.getAll('input-hidden');
+const inputHidden = inputHiddens[0];
+
+const inputTextObject = document.getElementsByName('input-text')[0];
+inputTextObject.value = nameText;
+inputTextObject.focus();
+inputTextObject.blur();
+
+const membersGet = sessionStorage.getItem('members');
+const membersLogical = membersGet || '[]';
+const members = JSON.parse(membersLogical);
+
 const membersSubmit = function (form) {
   const inputTextObject = form['input-text'];
   try {
@@ -9,10 +23,6 @@ const membersSubmit = function (form) {
     return false;
   }
 };
-
-const membersGet = sessionStorage.getItem('members');
-const membersLogical = membersGet || '[]';
-const members = JSON.parse(membersLogical);
 
 const membersCreate = function (member) {
   members.push(member);
