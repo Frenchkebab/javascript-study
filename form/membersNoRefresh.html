@@ -12,14 +12,15 @@
     <div style="display: none">
       <div id="tag-div-child">
         <input type="text" name="members-name" value="" />
+        <input type="text" name="members-age" value="" />
         <button name="members-update" onclick="membersUpdate(index)">Update</button>
         <button name="members-delete" onclick="membersDelete(index)">Delete</button>
       </div>
     </div>
 
     <form method="get" onsubmit="membersCreate(this); return false;">
-      <input type="text" name="input-text" value="초기값" placeholder="명령을 입력 하세요." />
-      <input type="hidden" name="input-hidden" value="숨겨진값" />
+      <input type="text" name="member-name" value="" placeholder="Name" />
+      <input type="text" name="member-age" value="" placeholder="Age" />
       <input type="submit" value="전송" />
     </form>
   </body>

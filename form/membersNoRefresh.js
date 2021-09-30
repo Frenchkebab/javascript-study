@@ -3,10 +3,10 @@ const nameText = queryString.get('input-text');
 const inputHiddens = queryString.getAll('input-hidden');
 const inputHidden = inputHiddens[0];
 
-const inputTextObject = document.getElementsByName('input-text')[0];
-inputTextObject.value = nameText;
-inputTextObject.focus();
-inputTextObject.blur();
+// const inputTextObject = document.getElementsByName('input-text')[0];
+// inputTextObject.value = nameText;
+// inputTextObject.focus();
+// inputTextObject.blur();
 
 const membersGet = sessionStorage.getItem('members');
 const membersLogical = membersGet || '[]';
@@ -25,9 +25,14 @@ const members = JSON.parse(membersLogical);
 // };
 
 const membersCreate = function (form) {
-  const inputTextObject = form['input-text'];
-  members.push(inputTextObject.value);
-  inputTextObject.value = '';
+  const memberNameObject = form['member-name'];
+  const memberAgeObject = form['member-age'];
+  members.push({
+    name: memberNameObject.value,
+    age: memberAgeObject.value
+  });
+  memberNameObject.value = '';
+  memberAgeObject.value = '';
   membersSet();
   return membersRead();
 };
@@ -41,9 +46,11 @@ const membersRead = function () {
     tagDivParent.appendChild(newDivChild);
 
     const membersNameObject = document.getElementsByName('members-name')[index];
+    const membersAgeObject = document.getElementsByName('members-age')[index];
     const membersUpdateObject = document.getElementsByName('members-update')[index];
     const membersDeleteObject = document.getElementsByName('members-delete')[index];
-    membersNameObject.value = members[index];
+    membersNameObject.value = members[index].name;
+    membersAgeObject.value = members[index].age;
     membersUpdateObject.index = index;
     membersDeleteObject.index = index;
   }
@@ -59,7 +66,8 @@ const membersDelete = function (index) {
 
 const membersUpdate = function (index) {
   const name = document.getElementsByName('members-name')[index].value;
-  members[index] = name;
+  const age = document.getElementsByName('members-age')[index].value;
+  members[index] = { name: name, age: age };
   membersSet();
   return membersRead();
 };
