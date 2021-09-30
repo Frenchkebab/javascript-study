@@ -39,6 +39,13 @@ const membersRead = function () {
   for (let index in members) {
     const newDivChild = tagDivChild.cloneNode(true);
     tagDivParent.appendChild(newDivChild);
+
+    const membersNameObject = document.getElementsByName('members-name')[index];
+    const membersUpdateObject = document.getElementsByName('members-update')[index];
+    const membersDeleteObject = document.getElementsByName('members-delete')[index];
+    membersNameObject.value = members[index];
+    membersUpdateObject.index = index;
+    membersDeleteObject.index = index;
   }
   console.log('Readed', members);
   return members;
