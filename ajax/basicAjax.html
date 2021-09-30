@@ -1,0 +1,27 @@
+<body>
+  <div><button onclick="ajaxTest()">Ajax run</button></div>
+  <div id="tag-div"></div>
+</body>
+<script>
+  const ajaxTest = function () {
+    const xhrObject = new XMLHttpRequest();
+    xhrObject.onreadystatechange = function () {
+      if (xhrObject.readyState !== 4) return;
+      if (xhrObject.status === 200) {
+        console.log('Done', xhrObject.responseText);
+        const tagDiv = document.getElementById('tag-div');
+        tagDiv.innerHTML = xhrObject.responseText;
+      } else {
+        const error = {
+          status: xhrObject.status,
+          statusText: xhrObject.statusText,
+          responseText: xhrObject.responseText
+        };
+        console.error(error);
+      }
+    };
+    xhrObject.open('GET', './basicTemplate2.html');
+    xhrObject.setRequestHeader('Content-Type', 'application/json');
+    xhrObject.send();
+  };
+</script>
