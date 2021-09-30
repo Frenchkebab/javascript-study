@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Document</title>
+    <script defer src="./membersNoRefresh.js"></script>
+  </head>
+  <body>
+    <pre id="tag-pre">a</pre>
+    <pre id="tag-pre">b</pre>
+    <pre id="tag-pre">c</pre>
+    <form method="get" onsubmit="membersCreate(this); return false;">
+      <input type="text" name="input-text" value="초기값" placeholder="명령을 입력 하세요." />
+      <input type="hidden" name="input-hidden" value="숨겨진값" />
+      <input type="submit" value="전송" />
+    </form>
+  </body>
+</html>
