@@ -2,6 +2,7 @@
   const membersGet = sessionStorage.getItem('members');
   const membersLogical = membersGet || '[]';
   const members = JSON.parse(membersLogical);
+
   const membersSet = function () {
     const membersSet = JSON.stringify(members);
     sessionStorage.setItem('members', membersSet);
