@@ -38,6 +38,26 @@ let members;
 //   return membersRead();
 // };
 
+const ajax = function (method, url, data, callback) {
+  const xhrObject = new XMLHttpRequest();
+  xhrObject.onreadystatechange = function () {
+    if (xhrObject.readyState !== 4) return;
+    if (xhrObject.status === 200) {
+      callback(xhrObject); // 성공적으로 200 응답을 받은 경우
+    } else {
+      const error = {
+        status: xhrObject.status,
+        statusText: xhrObject.statusText,
+        responseText: xhrObject.responseText
+      };
+      console.error(error);
+    }
+  };
+  xhrObject.open(method, url);
+  xhrObject.setRequestHeader('Content-Type', 'application/json'); // 질문
+  xhrObject.send(data);
+};
+
 const membersCreate = function (form) {
   const memberNameObject = form['member-name'];
   const memberAgeObject = form['member-age'];
@@ -83,23 +103,25 @@ const membersRead = function () {
     console.log('Readed', members);
   };
 
-  const xhrObject = new XMLHttpRequest();
-  xhrObject.onreadystatechange = function () {
-    if (xhrObject.readyState !== 4) return;
-    if (xhrObject.status === 200) {
-      successFunction(xhrObject);
-    } else {
-      const error = {
-        status: xhrObject.status,
-        statusText: xhrObject.statusText,
-        responseText: xhrObject.responseText
-      };
-      console.error(error);
-    }
-  };
-  xhrObject.open('GET', 'http://localhost:3100/api/v1/members');
-  xhrObject.setRequestHeader('Content-Type', 'application/json');
-  xhrObject.send();
+  // const xhrObject = new XMLHttpRequest();
+  // xhrObject.onreadystatechange = function () {
+  //   if (xhrObject.readyState !== 4) return;
+  //   if (xhrObject.status === 200) {
+  //     successFunction(xhrObject);
+  //   } else {
+  //     const error = {
+  //       status: xhrObject.status,
+  //       statusText: xhrObject.statusText,
+  //       responseText: xhrObject.responseText
+  //     };
+  //     console.error(error);
+  //   }
+  // };
+  // xhrObject.open('GET', 'http://localhost:3100/api/v1/members');
+  // xhrObject.setRequestHeader('Content-Type', 'application/json');
+  // xhrObject.send();
+
+  ajax('GET', 'http://localhost:3100/api/v1/members', undefined, successFunction);
 };
 
 const membersDelete = function (index) {
@@ -151,23 +173,3 @@ const membersUpdate = function (index) {
 };
 
 membersRead();
-
-const ajax = function (method, url, data, callback) {
-  const xhrObject = new XMLHttpRequest();
-  xhrObject.onreadystatechange = function () {
-    if (xhrObject.readyState !== 4) return;
-    if (xhrObject.status === 200) {
-      callback(); // 성공적으로 200 응답을 받은 경우
-    } else {
-      const error = {
-        status: xhrObject.status,
-        statusText: xhrObject.statusText,
-        responseText: xhrObject.responseText
-      };
-      console.error(error);
-    }
-  };
-  xhrObject.open(method, url);
-  xhrObject.setRequestHeader('Content-Type', 'application/json'); // 질문
-  xhrObject.send(data);
-};
