@@ -5,6 +5,10 @@ const inputHidden = inputHiddens[0];
 
 let members;
 
+const error = function (error) {
+  console.error(error.response || error.message || error);
+};
+
 const ajax = function (method, url, data, callback) {
   const xhrObject = new XMLHttpRequest();
   xhrObject.onreadystatechange = function () {
@@ -42,18 +46,13 @@ const membersCreate = function (form) {
     membersRead();
   };
 
-  axios
-    .post('http://localhost:3100/api/v1/member2', member)
-    .then(successFunction)
-    .catch(function (error) {
-      console.error(error);
-    });
+  axios.post('http://localhost:3100/api/v1/member2', member).then(successFunction).catch(error);
 };
 
 const membersRead = function () {
   // 200 응답을 받으면 호출할 함수
-  const successFunction = function (xhrObject) {
-    const membersLogical = JSON.parse(xhrObject.responseText);
+  const successFunction = function (response) {
+    const membersLogical = response.data;
     members = membersLogical.members;
     const tagDivParent = document.getElementById('tag-div-parent');
     const tagDivChild = document.getElementById('tag-div-child');
@@ -75,7 +74,7 @@ const membersRead = function () {
     console.log('Readed', members);
   };
 
-  ajax('GET', 'http://localhost:3100/api/v1/members', undefined, successFunction);
+  axios.get('http://localhost:3100/api/v1/members').then(successFunction).catch(error);
 };
 
 const membersDelete = function (index) {
