@@ -3,40 +3,7 @@ const nameText = queryString.get('input-text');
 const inputHiddens = queryString.getAll('input-hidden');
 const inputHidden = inputHiddens[0];
 
-// const inputTextObject = document.getElementsByName('input-text')[0];
-// inputTextObject.value = nameText;
-// inputTextObject.focus();
-// inputTextObject.blur();
-
-// const membersGet = sessionStorage.getItem('members');
-// const membersLogical = membersGet || '[]';
-// const members = JSON.parse(membersLogical);
 let members;
-
-// const membersSubmit = function (form) {
-//   const inputTextObject = form['input-text'];
-//   try {
-//     const evalReturn = eval(inputTextObject.value);
-//     console.log(evalReturn);
-//   } catch (error) {
-//     console.error(error);
-//     alert(error);
-//     return false;
-//   }
-// };
-
-// const membersCreate = function (form) {
-//   const memberNameObject = form['member-name'];
-//   const memberAgeObject = form['member-age'];
-//   members.push({
-//     name: memberNameObject.value,
-//     age: memberAgeObject.value
-//   });
-//   memberNameObject.value = '';
-//   memberAgeObject.value = '';
-//   membersSet();
-//   return membersRead();
-// };
 
 const ajax = function (method, url, data, callback) {
   const xhrObject = new XMLHttpRequest();
@@ -103,24 +70,6 @@ const membersRead = function () {
     console.log('Readed', members);
   };
 
-  // const xhrObject = new XMLHttpRequest();
-  // xhrObject.onreadystatechange = function () {
-  //   if (xhrObject.readyState !== 4) return;
-  //   if (xhrObject.status === 200) {
-  //     successFunction(xhrObject);
-  //   } else {
-  //     const error = {
-  //       status: xhrObject.status,
-  //       statusText: xhrObject.statusText,
-  //       responseText: xhrObject.responseText
-  //     };
-  //     console.error(error);
-  //   }
-  // };
-  // xhrObject.open('GET', 'http://localhost:3100/api/v1/members');
-  // xhrObject.setRequestHeader('Content-Type', 'application/json');
-  // xhrObject.send();
-
   ajax('GET', 'http://localhost:3100/api/v1/members', undefined, successFunction);
 };
 
@@ -137,23 +86,7 @@ const membersUpdate = function (index) {
     name: name,
     age: age
   };
-  const xhrObject = new XMLHttpRequest();
-  xhrObject.onreadystatechange = function () {
-    if (xhrObject.readyState !== 4) return;
-    if (xhrObject.status === 200) {
-      membersRead();
-    } else {
-      const error = {
-        status: xhrObject.status,
-        statusText: xhrObject.statusText,
-        responseText: xhrObject.responseText
-      };
-      console.error(error);
-    }
-  };
-  xhrObject.open('PATCH', url);
-  xhrObject.setRequestHeader('Content-Type', 'application/json');
-  xhrObject.send(JSON.stringify(member));
+  ajax('PATCH', url, JSON.stringify(member), membersRead);
 };
 
 membersRead();
